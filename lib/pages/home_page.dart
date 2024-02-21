@@ -75,6 +75,15 @@ class HomePage extends StatelessWidget {
                             context,
                             listen: false,
                           ).addItemToCart(index);
+
+                          SnackBar mySnackBar = SnackBar(
+                            content: Text("${value.items[index][0]} added"),
+                            duration: const Duration(seconds: 1),
+                          );
+
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(mySnackBar);
                         },
                       );
                     },

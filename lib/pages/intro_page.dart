@@ -24,7 +24,7 @@ class IntroPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Text(
-              'Get healthy life with fresh grocery store',
+              'Make healthy life with fresh grocery store',
               textAlign: TextAlign.center,
               style: GoogleFonts.notoSerif(
                 fontSize: 36,
@@ -34,7 +34,7 @@ class IntroPage extends StatelessWidget {
           ),
 
           Text(
-            'Fresh food everday',
+            'Fresh food everyday',
             style: TextStyle(
               color: Colors.grey[600],
             ),
@@ -55,7 +55,7 @@ class IntroPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12)),
               padding: const EdgeInsets.all(24),
               child: const Text(
-                'Get Started',
+                'Shop Now',
                 style: TextStyle(color: Colors.white),
               ),
             ),

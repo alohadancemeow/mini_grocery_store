@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_grocery_store/components/item_tile.dart';
+import 'package:mini_grocery_store/components/my_floating_button.dart';
 import 'package:mini_grocery_store/models/cart_model.dart';
 import 'package:mini_grocery_store/pages/cart_page.dart';
 import 'package:provider/provider.dart';
@@ -94,7 +95,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: MyFloatingButton(
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -103,9 +104,6 @@ class HomePage extends StatelessWidget {
             },
           ),
         ),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        child: const Icon(Icons.shopping_bag),
       ),
     );
   }

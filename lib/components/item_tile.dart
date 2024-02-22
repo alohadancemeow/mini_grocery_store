@@ -1,52 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:mini_grocery_store/models/item.dart';
 
-// ignore: must_be_immutable
 class ItemTile extends StatelessWidget {
-  final String itemName;
-  final String itemPrice;
-  final String imagePath;
-  final color;
-  void Function()? onPressed;
+  final Item item;
+  final void Function()? onPressed;
+  final void Function()? ontap;
 
-  ItemTile({
+  const ItemTile({
     super.key,
-    required this.itemName,
-    required this.itemPrice,
-    required this.imagePath,
-    required this.color,
+    required this.item,
     required this.onPressed,
+    required this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: color[100],
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              imagePath,
-              height: 64,
-            ),
-            Text(itemName),
-            MaterialButton(
-              onPressed: onPressed,
-              color: color[800],
-              child: Text(
-                "฿ $itemPrice",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: ontap,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: item.color.withAlpha(75),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                item.imagePath,
+                height: 64,
+              ),
+              Text(item.name),
+              MaterialButton(
+                onPressed: onPressed,
+                color: item.color,
+                child: Text(
+                  "฿ ${item.price}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

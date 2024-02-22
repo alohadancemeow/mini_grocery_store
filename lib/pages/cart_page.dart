@@ -14,10 +14,12 @@ class CartPage extends StatelessWidget {
           return Column(
             children: [
               Expanded(
-                child: value.cartItems.length != 0
+                child: value.cartItems.isNotEmpty
                     ? ListView.builder(
                         itemCount: value.cartItems.length,
                         itemBuilder: (context, index) {
+                          final item = value.cartItems[index];
+
                           return Padding(
                             padding: const EdgeInsets.all(12),
                             child: Container(
@@ -26,16 +28,13 @@ class CartPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: ListTile(
-                                leading: Image.asset(value.cartItems[index][2]),
-                                title: Text(value.cartItems[index][0]),
-                                subtitle:
-                                    Text("฿ ${value.cartItems[index][1]}"),
+                                leading: Image.asset(item.imagePath),
+                                title: Text(item.name),
+                                subtitle: Text("฿ ${item.price}"),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    Provider.of<CartModel>(context,
-                                            listen: false)
-                                        .removeItemFromCart(index);
+                                    value.removeItemFromCart(item);
                                   },
                                 ),
                               ),

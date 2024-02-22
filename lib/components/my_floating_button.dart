@@ -30,17 +30,18 @@ class MyFloatingButton extends StatelessWidget {
               // show badge
               value.cartItems.length != 0
                   ? Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(5),
                       constraints: const BoxConstraints(
-                        minHeight: 32,
-                        minWidth: 32,
+                        minHeight: 30,
+                        minWidth: 30,
                       ),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              color: Colors.black.withAlpha(50))
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: Colors.black.withAlpha(50),
+                          )
                         ],
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.blue, // This would be color of the Badge

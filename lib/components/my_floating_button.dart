@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mini_grocery_store/models/cart_model.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class MyFloatingButton extends StatelessWidget {
-  void Function()? onPressed;
+  final void Function()? onPressed;
 
-  MyFloatingButton({
+  const MyFloatingButton({
     super.key,
     required this.onPressed,
   });
@@ -28,7 +27,7 @@ class MyFloatingButton extends StatelessWidget {
               ),
 
               // show badge
-              value.cartItems.length != 0
+              value.cartItems.isNotEmpty
                   ? Container(
                       padding: const EdgeInsets.all(5),
                       constraints: const BoxConstraints(

@@ -12,9 +12,4 @@ class Item {
     required this.imagePath,
     required this.color,
   });
-
-  // String get _name => name;
-  // String get _price => price;
-  // String get _imagePath => imagePath;
-  // Color get _color => color;
 }

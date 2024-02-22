@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CartModel(),
       child: MaterialApp(
+        title: 'Mini Grocery Store',
         home: const IntroPage(),
         routes: {
           '/cartpage': (context) => const CartPage(),

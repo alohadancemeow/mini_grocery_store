@@ -17,32 +17,33 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  int quantityCount = 0;
+  int quantityCount = 1;
 
   void decrementQuantity() {
     setState(() {
-      if (quantityCount > 0) {
+      if (quantityCount > 1) {
         quantityCount--;
       }
     });
-    removeFromCart();
   }
 
   void incrementQuantity() {
     setState(() {
       quantityCount++;
     });
-    addToCart();
   }
 
-  // add and remove item from cart
-  void addToCart() =>
-      context.read<CartModel>().addItemToCart(widget.item, quantityCount);
-  void removeFromCart() =>
-      context.read<CartModel>().removeItemFromCart(widget.item);
+  void addToCart() {
+    context.read<CartModel>().addItemToCart(widget.item, quantityCount);
+    setState(() {
+      quantityCount = 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final estimatedPrice = double.parse(widget.item.price) * quantityCount;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.item.name} details"),
@@ -102,7 +103,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${widget.item.price}',
+                      '\$ $estimatedPrice.0',
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -151,6 +152,28 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                           ),
                         )
                       ],
+                    ),
+                    MaterialButton(
+                      onPressed: addToCart,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // border: Border.all(color: Colors.green.shade100),
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey[900],
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        child: const Row(
+                          children: [
+                            Text(
+                              "Add to cart",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),

@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_grocery_store/firebase_options.dart';
 import 'package:mini_grocery_store/models/cart_model.dart';
 import 'package:mini_grocery_store/pages/cart_page.dart';
 import 'package:mini_grocery_store/pages/intro_page.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 

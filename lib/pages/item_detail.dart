@@ -105,7 +105,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
           // price and quantity
           Container(
-            color: widget.item.color.withOpacity(0.8),
+            // color: widget.item.color.withOpacity(0.8),
             padding: const EdgeInsets.all(25),
             child: Column(
               children: [

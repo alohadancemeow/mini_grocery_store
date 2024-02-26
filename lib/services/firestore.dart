@@ -25,13 +25,18 @@ class FirestoreService {
   // REMOVE FROM CART
 
   // GET IMAGE PATH
-  Future<String> getImageUrlFromFirebaseStorage(String imagePath) async {
+  Future<String?> getImageUrlFromFirebaseStorage(String imagePath) async {
     try {
-      Reference ref = FirebaseStorage.instance.ref().child('cheese.png');
-      String downloadUrl = await ref.getDownloadURL();
-      return downloadUrl;
+      // Reference ref = FirebaseStorage.instance.ref().child('cheese.png');
+      // String downloadUrl = await ref.getDownloadURL();
+      // return downloadUrl;
+
+      final gsReference = FirebaseStorage.instance.refFromURL(imagePath);
+      return await gsReference.getDownloadURL();
+
+      // return data;
     } catch (e) {
-      return '';
+      return null;
     }
   }
 

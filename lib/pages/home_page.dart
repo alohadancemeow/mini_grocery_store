@@ -108,8 +108,14 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ItemDetailPage(item: items[index]),
+                                builder: (context) => ItemDetailPage(
+                                  item: Item(
+                                    name: data['name'],
+                                    price: data['price'].toString(),
+                                    imagePath: data['imagePath'],
+                                    color: data['color'],
+                                  ),
+                                ),
                               ),
                             );
                           },

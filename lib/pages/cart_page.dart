@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_grocery_store/models/cart_model.dart';
+import 'package:mini_grocery_store/models/item.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -11,14 +12,28 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(title: const Text('My cart')),
       body: Consumer<CartModel>(
         builder: (context, value, child) {
+          List<Item> items = value.cartItems;
+
+          Map<String, int> itemCount = {};
+
+          for (var item in items) {
+            itemCount.update(item.name, (value) => value + 1,
+                ifAbsent: () => 1);
+          }
+
           return Column(
             children: [
               Expanded(
                 child: value.cartItems.isNotEmpty
                     ? ListView.builder(
-                        itemCount: value.cartItems.length,
+                        itemCount: itemCount.length,
                         itemBuilder: (context, index) {
-                          final item = value.cartItems[index];
+                          String itemName = itemCount.keys.elementAt(index);
+                          int count = itemCount[itemName]!;
+                          String price = items
+                              .firstWhere((item) => item.name == itemName)
+                              .price;
+                          double subtotal = double.parse(price) * count;
 
                           return Padding(
                             padding: const EdgeInsets.all(12),
@@ -28,13 +43,16 @@ class CartPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: ListTile(
-                                leading: Image.asset(item.imagePath),
-                                title: Text(item.name),
-                                subtitle: Text("฿ ${item.price}"),
+                                leading: Image.asset(items
+                                    .firstWhere((item) => item.name == itemName)
+                                    .imagePath),
+                                title: Text("$itemName x$count"),
+                                subtitle:
+                                    Text("฿ ${subtotal.toStringAsFixed(2)}"),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    value.removeItemFromCart(item);
+                                    // value.removeItemFromCart(item);
                                   },
                                 ),
                               ),
@@ -90,14 +108,9 @@ class CartPage extends StatelessWidget {
                           child: const Row(
                             children: [
                               Text(
-                                "Pay Now",
+                                "Check out",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16,
-                                color: Colors.white,
-                              )
                             ],
                           ),
                         ),
@@ -112,4 +125,23 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
+
+  // void getItemCounts(List<Item> cartItems) {
+  //   Map<String, int> itemCounts = {};
+  //   Map<String, double> itemPrices = {};
+
+  //   itemCounts.clear();
+  //   for (final item in cartItems) {
+  //     if (itemCounts.containsKey(item)) {
+  //       itemCounts[item.name] += 1;
+  //     } else {
+  //       itemCounts[item.name] = 1;
+  //     }
+  //   }
+
+  //   double total = 0;
+  //   itemCounts.forEach((item, count) {
+  //     total += itemPrices[item]! * count;
+  //   });
+  // }
 }

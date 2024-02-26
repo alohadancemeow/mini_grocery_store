@@ -37,7 +37,7 @@ class ItemTile extends StatelessWidget {
                 onPressed: onPressed,
                 color: item.color,
                 child: Text(
-                  "฿ ${item.price}",
+                  "฿ ${double.parse(item.price).toStringAsFixed(1)}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

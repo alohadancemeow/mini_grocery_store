@@ -38,6 +38,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     setState(() {
       quantityCount = 1;
     });
+
+    SnackBar mySnackBar = SnackBar(
+      content: Text("${widget.item.name} added"),
+      duration: const Duration(seconds: 1),
+    );
+
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
+
+    Navigator.of(context).pop();
   }
 
   @override

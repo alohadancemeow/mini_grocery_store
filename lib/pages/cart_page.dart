@@ -52,7 +52,8 @@ class CartPage extends StatelessWidget {
                                 trailing: IconButton(
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    // value.removeItemFromCart(item);
+                                    value.removeItemFromCart(items.firstWhere(
+                                        (element) => element.name == itemName));
                                   },
                                 ),
                               ),

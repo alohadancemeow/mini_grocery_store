@@ -94,7 +94,8 @@ class CartModel extends ChangeNotifier {
   }
 
   void removeItemFromCart(Item item) {
-    _cartItems.remove(item);
+    _cartItems =
+        _cartItems.where((element) => element.name != item.name).toList();
     notifyListeners();
   }
 

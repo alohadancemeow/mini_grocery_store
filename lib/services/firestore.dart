@@ -27,14 +27,8 @@ class FirestoreService {
   // GET IMAGE PATH
   Future<String?> getImageUrlFromFirebaseStorage(String imagePath) async {
     try {
-      // Reference ref = FirebaseStorage.instance.ref().child('cheese.png');
-      // String downloadUrl = await ref.getDownloadURL();
-      // return downloadUrl;
-
       final gsReference = FirebaseStorage.instance.refFromURL(imagePath);
       return await gsReference.getDownloadURL();
-
-      // return data;
     } catch (e) {
       return null;
     }

@@ -22,59 +22,42 @@ class ItemTile extends StatelessWidget {
     Color color = firestoreService.getColorFromString(item.color);
 
     return Consumer<CartModel>(
-      builder: (context, value, child) => FutureBuilder<String?>(
-          future:
-              firestoreService.getImageUrlFromFirebaseStorage(item.imagePath),
-          builder: (context, snapshot) {
-            return GestureDetector(
-              onTap: ontap,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: color.withAlpha(75),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // snapshot.hasData
-                      //     ? Image.network(
-                      //         snapshot.data!,
-                      //         // 'https://firebasestorage.googleapis.com/v0/b/mini-grocery-store.appspot.com/o/blueberry.png?alt=media&token=04054e09-18f2-47f2-8f7f-f1a818f78ce4',
-                      //         height: 64,
-                      //       )
-                      //     : snapshot.hasError
-                      //         ? Image.asset(
-                      //             'lib/image/wartermelon.png',
-                      //             height: 64,
-                      //           )
-                      //         : const CircularProgressIndicator(),
-                      Image.asset(
-                        value.images
-                            .firstWhere((element) => element.name == item.name)
-                            .imagePath,
-                        height: 64,
-                      ),
-                      Text(item.name),
-                      MaterialButton(
-                        onPressed: onPressed,
-                        color: color,
-                        child: Text(
-                          "฿ ${double.parse(item.price).toStringAsFixed(1)}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+      builder: (context, value, child) => GestureDetector(
+        onTap: ontap,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withAlpha(75),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  value.images
+                      .firstWhere((element) => element.name == item.name)
+                      .imagePath,
+                  height: 64,
+                ),
+                Text(item.name),
+                MaterialButton(
+                  onPressed: onPressed,
+                  color: color,
+                  child: Text(
+                    "฿ ${double.parse(item.price).toStringAsFixed(1)}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            );
-          }),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

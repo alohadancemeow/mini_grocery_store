@@ -1,38 +1,52 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_grocery_store/models/cart_model.dart';
-import 'package:mini_grocery_store/models/item.dart';
-import 'package:provider/provider.dart';
+import 'package:mini_grocery_store/services/firestore.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final firestore = FirestoreService();
+
     return Scaffold(
       appBar: AppBar(title: const Text('My cart')),
-      body: Consumer<CartModel>(
-        builder: (context, value, child) {
-          List<Item> items = value.cartItems;
-
+      body: StreamBuilder<QuerySnapshot>(
+        stream: firestore.getCart(),
+        builder: (context, snapshot) {
+          // count items in cart
           Map<String, int> itemCount = {};
 
-          for (var item in items) {
-            itemCount.update(item.name, (value) => value + 1,
-                ifAbsent: () => 1);
+          if (snapshot.hasData) {
+            for (var item in snapshot.data!.docs) {
+              itemCount.update(item['name'], (value) => value + 1,
+                  ifAbsent: () => 1);
+            }
+          }
+
+          // calculate total price
+          double totalPrice = 0;
+
+          if (snapshot.hasData) {
+            for (var i = 0; i < snapshot.data!.docs.length; i++) {
+              totalPrice += double.parse(snapshot.data!.docs[i]['price']);
+            }
           }
 
           return Column(
             children: [
               Expanded(
-                child: value.cartItems.isNotEmpty
+                child: snapshot.data!.docs.isNotEmpty
                     ? ListView.builder(
                         itemCount: itemCount.length,
                         itemBuilder: (context, index) {
                           String itemName = itemCount.keys.elementAt(index);
                           int count = itemCount[itemName]!;
-                          String price = items
-                              .firstWhere((item) => item.name == itemName)
-                              .price;
+
+                          // destructuring data from firestore
+                          final items = snapshot.data!.docs;
+                          String price = items.firstWhere(
+                              (item) => item['name'] == itemName)['price'];
                           double subtotal = double.parse(price) * count;
 
                           return Padding(
@@ -43,17 +57,20 @@ class CartPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: ListTile(
-                                leading: Image.asset(items
-                                    .firstWhere((item) => item.name == itemName)
-                                    .imagePath),
+                                leading: Image.asset(
+                                  items.firstWhere((item) =>
+                                      item['name'] == itemName)['imagePath'],
+                                ),
                                 title: Text("$itemName x$count"),
                                 subtitle:
                                     Text("฿ ${subtotal.toStringAsFixed(2)}"),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    value.removeItemFromCart(items.firstWhere(
-                                        (element) => element.name == itemName));
+                                    firestore.removeFromCart(
+                                      items.firstWhere((element) =>
+                                          element['name'] == itemName)['name'],
+                                    );
                                   },
                                 ),
                               ),
@@ -89,7 +106,7 @@ class CartPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "฿ ${value.calculateTotal()}",
+                            "฿ ${totalPrice.toStringAsFixed(2)}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -126,23 +143,4 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
-
-  // void getItemCounts(List<Item> cartItems) {
-  //   Map<String, int> itemCounts = {};
-  //   Map<String, double> itemPrices = {};
-
-  //   itemCounts.clear();
-  //   for (final item in cartItems) {
-  //     if (itemCounts.containsKey(item)) {
-  //       itemCounts[item.name] += 1;
-  //     } else {
-  //       itemCounts[item.name] = 1;
-  //     }
-  //   }
-
-  //   double total = 0;
-  //   itemCounts.forEach((item, count) {
-  //     total += itemPrices[item]! * count;
-  //   });
-  // }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_grocery_store/models/cart_model.dart';
+import 'package:mini_grocery_store/models/item_images.dart';
 import 'package:mini_grocery_store/models/item.dart';
 import 'package:mini_grocery_store/services/firestore.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +20,8 @@ class ItemDetailPage extends StatefulWidget {
 class _ItemDetailPageState extends State<ItemDetailPage> {
   int quantityCount = 1;
 
+  final firestoreService = FirestoreService();
+
   void decrementQuantity() {
     setState(() {
       if (quantityCount > 1) {
@@ -35,7 +37,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   void addToCart() {
-    context.read<CartModel>().addItemToCart(widget.item, quantityCount);
+    firestoreService.addToCart(widget.item, quantityCount);
+
     setState(() {
       quantityCount = 1;
     });
@@ -54,8 +57,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   @override
   Widget build(BuildContext context) {
     final estimatedPrice = double.parse(widget.item.price) * quantityCount;
-
-    final firestoreService = FirestoreService();
     Color color = firestoreService.getColorFromString(widget.item.color);
 
     return Scaffold(
@@ -65,7 +66,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         elevation: 0,
         foregroundColor: Colors.grey[900],
       ),
-      body: Consumer<CartModel>(
+      body: Consumer<ItemImages>(
         builder: (context, value, child) => Column(
           children: [
             Expanded(
@@ -73,6 +74,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: ListView(
                   children: [
+                    const SizedBox(height: 25),
                     Image.asset(
                       widget.item.imagePath,
                       height: 200,
@@ -114,11 +116,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               padding: const EdgeInsets.all(25),
               child: Column(
                 children: [
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$ $estimatedPrice.0',
+                        '\$ ${estimatedPrice.toStringAsFixed(2)}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

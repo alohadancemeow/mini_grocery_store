@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_grocery_store/firebase_options.dart';
-import 'package:mini_grocery_store/models/cart_model.dart';
+import 'package:mini_grocery_store/models/item_images.dart';
 import 'package:mini_grocery_store/pages/cart_page.dart';
 import 'package:mini_grocery_store/pages/intro_page.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CartModel(),
+      create: (context) => ItemImages(),
       child: MaterialApp(
         title: 'Mini Grocery Store',
         home: const IntroPage(),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_grocery_store/models/cart_model.dart';
+import 'package:mini_grocery_store/models/item_images.dart';
 import 'package:mini_grocery_store/models/item.dart';
 import 'package:mini_grocery_store/services/firestore.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,7 @@ class ItemTile extends StatelessWidget {
     final firestoreService = FirestoreService();
     Color color = firestoreService.getColorFromString(item.color);
 
-    return Consumer<CartModel>(
+    return Consumer<ItemImages>(
       builder: (context, value, child) => GestureDetector(
         onTap: ontap,
         child: Padding(

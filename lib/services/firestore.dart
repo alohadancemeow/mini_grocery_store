@@ -12,17 +12,33 @@ class FirestoreService {
   // READ ITEMS
   Stream<QuerySnapshot> getItems() => itemsRef.snapshots();
 
+  // READ ITEM FROM CART
+  Stream<QuerySnapshot> getCart() => cartRef.snapshots();
+
   // ADD TO CART
-  Future<void> addToCart(Item item) {
-    return cartRef.add({
-      'name': item.name,
-      'price': item.price,
-      'imagePath': item.imagePath,
-      'color': item.color,
-      'timestamp': Timestamp.now(),
+  Future<void> addToCart(Item item, int qty) async {
+    for (var i = 0; i < qty; i++) {
+      cartRef.add({
+        'name': item.name,
+        'price': item.price,
+        'imagePath': item.imagePath,
+        'color': item.color,
+        'timestamp': Timestamp.now(),
+      });
+    }
+  }
+
+  // REMOVE FROM CART
+  Future<void> removeFromCart(String itemName) async {
+    // get items to delete
+    QuerySnapshot cartItems =
+        await cartRef.where('name', isEqualTo: itemName).get();
+
+    // loop for deleting all items which has the same name as item
+    cartItems.docs.forEach((document) async {
+      await cartRef.doc(document.id).delete();
     });
   }
-  // REMOVE FROM CART
 
   // GET IMAGE PATH
   Future<String?> getImageUrlFromFirebaseStorage(String imagePath) async {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_grocery_store/components/item_tile.dart';
 import 'package:mini_grocery_store/components/my_floating_button.dart';
-import 'package:mini_grocery_store/models/cart_model.dart';
+import 'package:mini_grocery_store/models/item_images.dart';
 import 'package:mini_grocery_store/models/item.dart';
 import 'package:mini_grocery_store/pages/item_detail.dart';
 import 'package:mini_grocery_store/services/firestore.dart';
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final images = context.read<CartModel>().images;
+    final images = context.read<ItemImages>().images;
 
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
@@ -103,6 +103,18 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onPressed: () {
                             // todo: add item to cart
+                            firestore.addToCart(
+                              Item(
+                                name: data['name'],
+                                price: data['price'],
+                                imagePath: images
+                                    .firstWhere((element) =>
+                                        element.name == data['name'])
+                                    .imagePath,
+                                color: data['color'],
+                              ),
+                              1,
+                            );
 
                             SnackBar mySnackBar = SnackBar(
                               content: Text("${items[index].name} added"),
@@ -121,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context) => ItemDetailPage(
                                   item: Item(
                                     name: data['name'],
-                                    price: data['price'].toString(),
+                                    price: data['price'],
                                     imagePath: images
                                         .firstWhere((element) =>
                                             element.name == data['name'])

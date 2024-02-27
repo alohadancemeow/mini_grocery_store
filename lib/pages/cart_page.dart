@@ -116,7 +116,18 @@ class CartPage extends StatelessWidget {
                         ],
                       ),
                       MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          firestore.clearCart();
+
+                          SnackBar mySnackBar = const SnackBar(
+                            content: Text("Payment successfully completed 🎉"),
+                            duration: Duration(seconds: 1),
+                          );
+
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(mySnackBar);
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.green.shade100),

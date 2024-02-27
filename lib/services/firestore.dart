@@ -40,6 +40,15 @@ class FirestoreService {
     });
   }
 
+  // DELETE ALL ITMES IN CART
+  Future<void> clearCart() async {
+    QuerySnapshot cartItems = await cartRef.get();
+
+    cartItems.docs.forEach((document) async {
+      await cartRef.doc(document.id).delete();
+    });
+  }
+
   // GET IMAGE PATH
   Future<String?> getImageUrlFromFirebaseStorage(String imagePath) async {
     try {

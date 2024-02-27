@@ -29,7 +29,7 @@ class MyFloatingButton extends StatelessWidget {
             ),
 
             // show badge
-            snapshot.hasData
+            snapshot.data!.docs.isNotEmpty
                 ? Container(
                     padding: const EdgeInsets.all(5),
                     constraints: const BoxConstraints(

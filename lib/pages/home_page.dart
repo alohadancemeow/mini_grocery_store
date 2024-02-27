@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                             );
 
                             SnackBar mySnackBar = SnackBar(
-                              content: Text("${items[index].name} added"),
+                              content: Text("${items[index]['name']} added"),
                               duration: const Duration(seconds: 1),
                             );
 

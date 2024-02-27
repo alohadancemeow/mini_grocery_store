@@ -74,10 +74,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 child: ListView(
                   children: [
                     Image.asset(
-                      value.images
-                          .firstWhere(
-                              (element) => element.name == widget.item.name)
-                          .imagePath,
+                      widget.item.imagePath,
                       height: 200,
                     ),
                     const SizedBox(height: 50),
@@ -175,7 +172,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         onPressed: addToCart,
                         child: Container(
                           decoration: BoxDecoration(
-                            // border: Border.all(color: Colors.green.shade100),
                             borderRadius: BorderRadius.circular(8),
                             color: Colors.grey[900],
                           ),

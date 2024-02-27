@@ -36,9 +36,7 @@ class ItemTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
-                  value.images
-                      .firstWhere((element) => element.name == item.name)
-                      .imagePath,
+                  item.imagePath,
                   height: 64,
                 ),
                 Text(item.name),

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_grocery_store/components/item_tile.dart';
 import 'package:mini_grocery_store/components/my_floating_button.dart';
+import 'package:mini_grocery_store/models/cart_model.dart';
 import 'package:mini_grocery_store/models/item.dart';
 import 'package:mini_grocery_store/pages/item_detail.dart';
 import 'package:mini_grocery_store/services/firestore.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +21,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final images = context.read<CartModel>().images;
+
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: firestore.getItems(),
@@ -88,7 +92,13 @@ class _HomePageState extends State<HomePage> {
                           item: Item(
                             name: data['name'],
                             price: data['price'].toString(),
-                            imagePath: data['imagePath'],
+                            // imagePath: data['imagePath'],
+
+                            // using local image which has the same name
+                            imagePath: images
+                                .firstWhere(
+                                    (element) => element.name == data['name'])
+                                .imagePath,
                             color: data['color'],
                           ),
                           onPressed: () {
@@ -112,7 +122,10 @@ class _HomePageState extends State<HomePage> {
                                   item: Item(
                                     name: data['name'],
                                     price: data['price'].toString(),
-                                    imagePath: data['imagePath'],
+                                    imagePath: images
+                                        .firstWhere((element) =>
+                                            element.name == data['name'])
+                                        .imagePath,
                                     color: data['color'],
                                   ),
                                 ),

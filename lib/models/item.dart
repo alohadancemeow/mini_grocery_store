@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-
 class Item {
   String name;
   String price;
   String imagePath;
-  Color color;
+  String color;
 
   Item({
     required this.name,

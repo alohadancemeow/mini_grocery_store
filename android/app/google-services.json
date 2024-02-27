@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916517402300",
+    "project_id": "mini-grocery-store",
+    "storage_bucket": "mini-grocery-store.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916517402300:android:7d5b0a1e337daf40a642b9",
+        "android_client_info": {
+          "package_name": "com.example.mini_grocery_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHkyQQO-pu1eHGT1NDg0Qe-OpK8NCwpxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

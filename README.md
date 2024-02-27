@@ -36,4 +36,7 @@ A small grocery store that serves fresh food for customers who want good health.
      └── firestore.dart
 ```
 
+### Screenshot:
+![image](https://github.com/alohadancemeow/mini_grocery_store/blob/929288632db24ac00428bf9c1c0cadc5799a2101/lib/images/Screenshot%202024-02-27%20165345.png)
+
 #### Source code: [Mini Grocery Store](https://github.com/alohadancemeow/mini_grocery_store.git) 🚀

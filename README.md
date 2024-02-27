@@ -1,13 +1,39 @@
-# mini_grocery_store
+# Project Mobile Application.
 
-A new Flutter project.
+### Mini Grocery Store 🍉:
+A small grocery store that serves fresh food for customers who want good health. 💪
+- using flutter + firebase
 
-### Image issue:
-- issue: can't get image from firebase storage
-- fix: run this command in terminal instead
+🎏 Contain 4 pages:
+- Intro page
+- Home page
+- Item detail page
+- Cart page
 
- ```bash
-flutter run -d chrome --web-renderer html
- ```
+📚 Features:
+- Add item to cart
+- Remove item from cart
+- Check out
 
-https://github.com/flutter/flutter/issues/73109
+### Project structure (/lib)
+```
+─ lib
+  ├── components
+  |  ├── item_tile.dart
+  |  └── my_floating_button.dart
+  ├── firebase_options.dart
+  ├── images
+  ├── main.dart
+  ├── models
+  |  ├── item.dart
+  |  └── item_images.dart
+  ├── pages 
+  |  ├── cart_page.dart
+  |  ├── home_page.dart
+  |  ├── intro_page.dart
+  |  └── item_detail.dart
+  └── services
+     └── firestore.dart
+```
+
+#### Source code: [Mini Grocery Store](https://github.com/alohadancemeow/mini_grocery_store.git) 🚀

@@ -93,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                             name: data['name'],
                             price: data['price'].toString(),
                             // imagePath: data['imagePath'],
+                            description: data['description'],
 
                             // using local image which has the same name
                             imagePath: images
@@ -105,14 +106,14 @@ class _HomePageState extends State<HomePage> {
                             // todo: add item to cart
                             firestore.addToCart(
                               Item(
-                                name: data['name'],
-                                price: data['price'],
-                                imagePath: images
-                                    .firstWhere((element) =>
-                                        element.name == data['name'])
-                                    .imagePath,
-                                color: data['color'],
-                              ),
+                                  name: data['name'],
+                                  price: data['price'],
+                                  imagePath: images
+                                      .firstWhere((element) =>
+                                          element.name == data['name'])
+                                      .imagePath,
+                                  color: data['color'],
+                                  description: data['description']),
                               1,
                             );
 
@@ -132,14 +133,14 @@ class _HomePageState extends State<HomePage> {
                               MaterialPageRoute(
                                 builder: (context) => ItemDetailPage(
                                   item: Item(
-                                    name: data['name'],
-                                    price: data['price'],
-                                    imagePath: images
-                                        .firstWhere((element) =>
-                                            element.name == data['name'])
-                                        .imagePath,
-                                    color: data['color'],
-                                  ),
+                                      name: data['name'],
+                                      price: data['price'],
+                                      imagePath: images
+                                          .firstWhere((element) =>
+                                              element.name == data['name'])
+                                          .imagePath,
+                                      color: data['color'],
+                                      description: data['description']),
                                 ),
                               ),
                             );
